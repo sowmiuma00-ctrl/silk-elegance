@@ -1,0 +1,93 @@
+.admin-wrap { padding: 50px 0 90px; }
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 30px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .admin-grid { grid-template-columns: 1fr; }
+}
+
+.admin-panel-box {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.admin-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.admin-input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255,255,255,0.04);
+  color: var(--ivory);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+}
+.admin-input:focus { outline: none; border-color: var(--gold); }
+textarea.admin-input { resize: vertical; }
+
+.admin-hint { font-size: 0.78rem; color: var(--muted); }
+.admin-hint code, #form-title + p code, .admin-panel-box code {
+  background: rgba(255,255,255,0.08);
+  padding: 1px 6px;
+  border-radius: 6px;
+  color: var(--gold);
+}
+
+.admin-actions { display: flex; gap: 12px; margin-top: 6px; }
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.admin-table th {
+  text-align: left;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--glass-border);
+}
+.admin-table td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  vertical-align: middle;
+}
+.admin-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #000;
+}
+.admin-row-actions { display: flex; gap: 8px; }
+.admin-row-actions button {
+  background: none;
+  border: 1px solid var(--glass-border);
+  color: var(--muted);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.admin-row-actions button:hover { color: var(--ivory); border-color: var(--gold); }
+.admin-row-actions .danger:hover { color: #e26565; border-color: #e26565; }
+
+.admin-table-scroll { max-height: 520px; overflow-y: auto; }

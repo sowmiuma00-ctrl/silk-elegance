@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silk Élegance — Handcrafted Silk Thread Bangles</title>
+<meta name="description" content="Handcrafted silk thread bangles, wound and woven by hand in small batches. Bridal, festive and everyday collections.">
+<style>
+/* ==========================================================================
+   SILK ÉLEGANCE — design tokens
+   Palette:
+     --void      #0b0a10   near-black base, faint plum undertone
+     --deep      #17131f   glass panel base
+     --ivory     #f3ecdf   primary text (warm, not stark white)
+     --muted     #b7aec2   secondary text
+     --gold      #d9a94e   thread colour 1
+     --magenta   #c9377d   thread colour 2
+     --violet    #8a5cf6   thread colour 3
+     --teal      #2fb3a3   thread colour 4
+   Type:
+     Display — 'Cormorant Garamond' (elegant, jewelry-catalogue serif)
+     Body    — 'Jost'      (clean geometric sans, boutique feel)
+   Signature element: the "thread weave" — a rotating conic-gradient border
+   and a woven SVG divider, referencing how the bangles are actually made:
+   silk thread wound and interlaced in shifting colour.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+  --void: #0b0a10;
+  --deep: #17131f;
+  --ivory: #f3ecdf;
+  --muted: #b7aec2;
+  --gold: #d9a94e;
+  --magenta: #c9377d;
+  --violet: #8a5cf6;
+  --teal: #2fb3a3;
+
+  --glass-bg: rgba(255, 255, 255, 0.045);
+  --glass-bg-strong: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+
+  --thread-gradient: linear-gradient(90deg, var(--gold), var(--magenta), var(--violet), var(--teal), var(--gold));
+
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --container: 1180px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--ivory);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .brand-wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- ambient aurora background ---------- */
+.bg-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: var(--void);
+  overflow: hidden;
+}
+.bg-aurora::before,
+.bg-aurora::after {
+  content: "";
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.32;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+.bg-aurora::before {
+  top: -15%;
+  left: -10%;
+  background: radial-gradient(circle, var(--magenta), transparent 65%);
+}
+.bg-aurora::after {
+  bottom: -20%;
+  right: -10%;
+  background: radial-gradient(circle, var(--teal), transparent 65%);
+  animation-duration: 32s;
+  animation-delay: -6s;
+}
+.bg-aurora .blob-3 {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  width: 45vw;
+  height: 45vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold), transparent 65%);
+  filter: blur(120px);
+  opacity: 0.22;
+  animation: drift 22s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(6vw, 8vh) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora::before, .bg-aurora::after, .bg-aurora .blob-3 { animation: none; }
+}
+
+/* ---------- glass nav ---------- */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  background: rgba(11, 10, 16, 0.55);
+  border-bottom: 1px solid var(--glass-border);
+}
+.site-nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.brand-wordmark {
+  font-size: 1.6rem;
+  font-style: italic;
+  background: var(--thread-gradient);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: threadshift 8s linear infinite;
+  letter-spacing: 0.03em;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.nav-links a {
+  color: var(--muted);
+  transition: color 0.25s ease;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: var(--ivory);
+  border-bottom-color: var(--gold);
+}
+
+@keyframes threadshift {
+  to { background-position: 300% 0; }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  padding: 110px 0 70px;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--glass-border);
+  padding: 6px 18px;
+  border-radius: 40px;
+  background: var(--glass-bg);
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.08;
+  max-width: 15ch;
+  margin: 0 auto 22px;
+  background: var(--thread-gradient);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: threadshift 10s linear infinite;
+}
+.hero p {
+  max-width: 46ch;
+  margin: 0 auto 36px;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: 40px;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.btn-primary {
+  background: linear-gradient(120deg, var(--magenta), var(--violet));
+  color: #fff;
+  border: none;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -8px var(--magenta); }
+.btn-ghost {
+  background: var(--glass-bg);
+  color: var(--ivory);
+}
+.btn-ghost:hover { background: var(--glass-bg-strong); transform: translateY(-2px); }
+
+/* ---------- thread divider (signature element) ---------- */
+.thread-divider {
+  display: block;
+  width: 100%;
+  height: 46px;
+  margin: 10px 0 30px;
+}
+.thread-divider path {
+  fill: none;
+  stroke: url(#threadGradientLine);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+/* ---------- section shell ---------- */
+section { padding: 70px 0; }
+.section-head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-head .eyebrow {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.section-head h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+.section-head p {
+  color: var(--muted);
+  max-width: 50ch;
+  margin: 14px auto 0;
+}
+
+/* ---------- filter pills ---------- */
+.filter-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.filter-pill {
+  padding: 9px 22px;
+  border-radius: 40px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.filter-pill:hover { color: var(--ivory); }
+.filter-pill.active {
+  color: var(--void);
+  background: var(--thread-gradient);
+  background-size: 300% 100%;
+  animation: threadshift 8s linear infinite;
+  border-color: transparent;
+  font-weight: 500;
+}
+
+/* ---------- product grid & glass cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 26px;
+}
+
+.card {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: var(--glass-border);
+  isolation: isolate;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from 0deg, var(--gold), var(--magenta), var(--violet), var(--teal), var(--gold));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: spin 6s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+.card:hover::before,
+.card:focus-visible::before { opacity: 1; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.card-inner {
+  background: var(--deep);
+  border-radius: inherit;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.35s ease;
+}
+.card:hover .card-inner,
+.card:focus-visible .card-inner { transform: translateY(-6px); }
+
+.card-media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #000;
+}
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.card:hover .card-media img { transform: scale(1.08); }
+
+.card-body { padding: 18px 20px 22px; }
+.card-collection {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  display: block;
+}
+.card-name {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+.card-color {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  color: var(--ivory);
+}
+.card-price::before { content: "₹"; opacity: 0.7; margin-right: 1px; }
+.card-view {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.card:hover .card-view { color: var(--ivory); }
+.card-view svg { width: 12px; height: 12px; transition: transform 0.3s ease; }
+.card:hover .card-view svg { transform: translateX(3px); }
+
+/* ---------- about split ---------- */
+.about-split {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.about-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: var(--deep);
+  border: 1px solid var(--glass-border);
+}
+.about-media img { width: 100%; height: 100%; object-fit: cover; }
+.about-text h2 { margin-bottom: 18px; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+.about-text p { color: var(--muted); margin-bottom: 16px; }
+.about-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 28px;
+}
+.about-stats div strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: var(--gold);
+}
+.about-stats div span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 860px) {
+  .about-split { grid-template-columns: 1fr; }
+  .about-media { aspect-ratio: 16/10; }
+}
+
+/* ---------- contact / footer ---------- */
+.contact-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 50px;
+  text-align: center;
+}
+.contact-panel h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 14px; }
+.contact-panel p { color: var(--muted); max-width: 44ch; margin: 0 auto 28px; }
+
+footer {
+  border-top: 1px solid var(--glass-border);
+  padding: 34px 0;
+  margin-top: 40px;
+}
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.footer-row small { color: var(--muted); font-size: 0.82rem; }
+.footer-social {
+  display: flex;
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-social a { color: var(--muted); font-size: 0.85rem; }
+.footer-social a:hover { color: var(--gold); }
+
+/* ==========================================================================
+   PRODUCT DETAIL PAGE
+   ========================================================================== */
+.breadcrumb {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--gold); }
+
+.product-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+  padding-bottom: 40px;
+}
+.pd-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: var(--deep);
+  aspect-ratio: 1/1;
+  position: relative;
+}
+.pd-media img { width: 100%; height: 100%; object-fit: cover; }
+
+.pd-collection {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: block;
+}
+.pd-name {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 12px;
+}
+.pd-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  margin-bottom: 22px;
+  color: var(--ivory);
+}
+.pd-price::before { content: "₹"; opacity: 0.7; }
+
+.pd-swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 26px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+.pd-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+  flex-shrink: 0;
+}
+.pd-swatch-label { font-size: 0.85rem; color: var(--muted); }
+.pd-swatch-label strong { color: var(--ivory); font-weight: 500; }
+
+.pd-description {
+  color: var(--muted);
+  margin-bottom: 30px;
+  line-height: 1.75;
+}
+
+.pd-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+}
+
+.pd-meta-list {
+  list-style: none;
+  padding: 20px 0 0;
+  margin: 0;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.pd-meta-list li { display: flex; justify-content: space-between; padding: 8px 0; }
+.pd-meta-list li span:last-child { color: var(--ivory); }
+
+@media (max-width: 860px) {
+  .product-detail { grid-template-columns: 1fr; }
+}
+
+.pd-not-found {
+  text-align: center;
+  padding: 100px 0;
+}
+.pd-not-found h2 { margin-bottom: 14px; }
+.pd-not-found p { color: var(--muted); margin-bottom: 26px; }
+
+</style>
+</head>
+<body>
+
+<div class="bg-aurora"><div class="blob-3"></div></div>
+
+<!-- hidden SVG gradient definition, reused by the thread-divider signature element -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="threadGradientLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d9a94e"><animate attributeName="stop-color" values="#d9a94e;#c9377d;#8a5cf6;#2fb3a3;#d9a94e" dur="8s" repeatCount="indefinite"/></stop>
+      <stop offset="50%" stop-color="#c9377d"><animate attributeName="stop-color" values="#c9377d;#8a5cf6;#2fb3a3;#d9a94e;#c9377d" dur="8s" repeatCount="indefinite"/></stop>
+      <stop offset="100%" stop-color="#2fb3a3"><animate attributeName="stop-color" values="#2fb3a3;#d9a94e;#c9377d;#8a5cf6;#2fb3a3" dur="8s" repeatCount="indefinite"/></stop>
+    </linearGradient>
+  </defs>
+</svg>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand-wordmark">Silk Élegance</a>
+    <ul class="nav-links">
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Wound &amp; woven by hand</span>
+    <h1>Where thread becomes art, one wrist at a time.</h1>
+    <p>Every Silk Élegance bangle is hand-wound from pure silk thread in small batches — no two skeins catch the light quite the same way.</p>
+    <div class="hero-ctas">
+      <a href="#collection" class="btn btn-primary">Explore the collection</a>
+      <a href="#about" class="btn btn-ghost">Our story</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <svg class="thread-divider" viewBox="0 0 1180 46" preserveAspectRatio="none">
+    <path d="M0,23 C 120,5 200,41 320,23 C 440,5 520,41 640,23 C 760,5 840,41 960,23 C 1040,10 1120,30 1180,23" />
+  </svg>
+</div>
+
+<section id="collection">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The Collection</span>
+      <h2>25 hand-wound designs</h2>
+      <p>Filter by occasion, or scroll the full set. Tap any bangle for thread colour, sizing and ordering details.</p>
+    </div>
+
+    <div class="filter-row" id="filter-row">
+      <button class="filter-pill active" data-filter="All">All</button>
+      <button class="filter-pill" data-filter="Bridal">Bridal</button>
+      <button class="filter-pill" data-filter="Festive">Festive</button>
+      <button class="filter-pill" data-filter="Casual">Casual</button>
+    </div>
+
+    <div class="grid" id="product-grid">
+      <!-- Product cards are generated from js/products.js — see that file to add your own photos. -->
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-split">
+    <div class="about-media">
+      <img src="images/about-artisan.svg" alt="Artisan winding silk thread by hand" onerror="this.src='images/product-1.svg'">
+    </div>
+    <div class="about-text">
+      <span class="eyebrow" style="color:var(--gold); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; display:block; margin-bottom:10px;">Our Story</span>
+      <h2>A small workshop, a lot of thread.</h2>
+      <p>Silk Élegance started on a kitchen table with a few spools of silk thread and a stack of plain bangles nobody wanted. Today every piece is still wound by hand, one colour at a time, in batches small enough that we notice when a shade runs out.</p>
+      <p>We work directly with thread artisans, keep our palettes seasonal, and make sure every bangle that leaves our workshop could survive a wedding, a wardrobe change, and a few years of daily wear.</p>
+      <div class="about-stats">
+        <div><strong>25+</strong><span>Active designs</span></div>
+        <div><strong>100%</strong><span>Hand-wound</span></div>
+        <div><strong>Made</strong><span>To order</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <h2>Custom colours, custom sizes.</h2>
+      <p>Have a saree or lehenga you're matching against? Fill the custom enquiry form with a photo of the shade, and we'll wind a bangle to match.</p>
+      <div class="hero-ctas">
+        <a id="custom-form-link" href="#" class="btn btn-primary" target="_blank" rel="noopener">Custom enquiry form</a>
+        <a id="whatsapp-link" href="#" class="btn btn-ghost" target="_blank" rel="noopener">WhatsApp us</a>
+        <a id="email-link" href="#" class="btn btn-ghost">Email us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <small>© <span id="year"></span> Silk Élegance. Handcrafted in small batches.</small>
+    <ul class="footer-social">
+      <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="#" target="_blank" rel="noopener">Pinterest</a></li>
+      <li><a href="mailto:hello@silkelegance.example">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/*
+  SILK ÉLEGANCE — PRODUCT DATA
+  ============================
+  This is the ONLY file you need to edit to manage your catalogue.
+
+  HOW TO ADD YOUR OWN PHOTOS:
+  1. Drop your product photo into the /images folder.
+     (Square photos, roughly 800x800px, work best.)
+  2. Set the "image" field below to that filename, e.g. "images/my-bangle-1.jpg"
+  3. That's it — the homepage grid and the product page both read from here.
+
+  HOW TO ADD A NEW PRODUCT:
+  - Copy one block below, paste it before the closing "];",
+    give it a unique "id" (just the next number), and fill in the details.
+
+  HOW TO REMOVE A PRODUCT:
+  - Delete its whole { ... } block.
+*/
+
+const PRODUCTS = [
+  { id: 1,  name: "Marigold Bloom",      collection: "Festive",  color: "Marigold Gold",     price: 449, image: "images/product-1.svg",  description: "Hand-wound marigold-gold silk thread over a lightweight brass base, finished with a cluster of mirror-work beads. A festive staple that layers beautifully with gold jewellery." },
+  { id: 2,  name: "Rani Pink Raga",      collection: "Bridal",   color: "Rani Pink",         price: 599, image: "images/product-2.svg",  description: "Deep rani pink thread wrapped in a traditional raga pattern, studded with kundan stones. Designed for the bride who wants colour without losing elegance." },
+  { id: 3,  name: "Peacock Teal Weave",  collection: "Casual",   color: "Peacock Teal",      price: 379, image: "images/product-3.svg",  description: "A cool peacock-teal weave with a matte thread finish, perfect for everyday wear over kurtas and cottons." },
+  { id: 4,  name: "Emerald Zari Coil",   collection: "Festive",  color: "Emerald Green",     price: 529, image: "images/product-4.svg",  description: "Emerald silk thread coiled with fine zari edging, giving each bangle a subtle metallic glint under light." },
+  { id: 5,  name: "Sunset Kundan",       collection: "Bridal",   color: "Sunset Orange",     price: 649, image: "images/product-5.svg",  description: "Warm sunset-orange thread paired with hand-set kundan stones along the outer edge. A statement piece for evening functions." },
+  { id: 6,  name: "Ivory Pearl Trail",   collection: "Bridal",   color: "Ivory White",       price: 599, image: "images/product-6.svg",  description: "Ivory thread base trailed with tiny seed pearls, designed to sit quietly elegant against darker outfits." },
+  { id: 7,  name: "Maroon Temple Coil",  collection: "Festive",  color: "Deep Maroon",       price: 469, image: "images/product-7.svg",  description: "A temple-inspired coil pattern in deep maroon thread, finished with antique-gold accent beads." },
+  { id: 8,  name: "Turquoise Drop",      collection: "Casual",   color: "Turquoise Blue",    price: 349, image: "images/product-8.svg",  description: "Light turquoise thread with a single hanging drop bead — an easy everyday bangle that adds a pop of colour." },
+  { id: 9,  name: "Sandalwood Weft",     collection: "Casual",   color: "Sandalwood Beige",  price: 329, image: "images/product-9.svg",  description: "Earthy sandalwood-toned thread woven tight and smooth, made to pair with neutral and pastel outfits." },
+  { id: 10, name: "Royal Purple Zari",   collection: "Festive",  color: "Royal Purple",      price: 489, image: "images/product-10.svg", description: "Rich purple silk thread with fine zari inlay, a favourite for Navratri and other festive gatherings." },
+  { id: 11, name: "Coral Reef Bloom",    collection: "Casual",   color: "Coral Pink",        price: 359, image: "images/product-11.svg", description: "A coral-pink weave finished with small floral-shaped thread knots, light enough for daily wear." },
+  { id: 12, name: "Midnight Zircon",     collection: "Bridal",   color: "Midnight Blue",     price: 579, image: "images/product-12.svg", description: "Midnight-blue thread studded with zircon stones that catch the light with every movement of the wrist." },
+  { id: 13, name: "Mango Yellow Twist",  collection: "Festive",  color: "Mango Yellow",      price: 399, image: "images/product-13.svg", description: "A cheerful mango-yellow twist pattern, traditionally paired with green bangles for festive stacking." },
+  { id: 14, name: "Rose Gold Filigree",  collection: "Bridal",   color: "Rose Gold",         price: 619, image: "images/product-14.svg", description: "Rose-gold toned thread with a delicate filigree-style beadwork border, made for engagement functions." },
+  { id: 15, name: "Bottle Green Trail",  collection: "Casual",   color: "Bottle Green",      price: 339, image: "images/product-15.svg", description: "A deep bottle-green thread bangle with a simple, refined finish — easy to dress up or down." },
+  { id: 16, name: "Copper Sunrise",      collection: "Festive",  color: "Copper Orange",     price: 459, image: "images/product-16.svg", description: "Copper-orange thread wound in a sunrise pattern, finished with tiny brass discs along the rim." },
+  { id: 17, name: "Lavender Mist",       collection: "Casual",   color: "Lavender",          price: 319, image: "images/product-17.svg", description: "A soft lavender weave with a gentle sheen, designed for pastel and monochrome outfits." },
+  { id: 18, name: "Crimson Kalash",      collection: "Bridal",   color: "Crimson Red",       price: 639, image: "images/product-18.svg", description: "Crimson-red thread bangle with kalash-inspired beadwork, traditionally worn by brides for auspicious occasions." },
+  { id: 19, name: "Steel Grey Minimal",  collection: "Casual",   color: "Steel Grey",        price: 299, image: "images/product-19.svg", description: "A clean, minimal steel-grey thread bangle for those who prefer understated everyday jewellery." },
+  { id: 20, name: "Champagne Gold Coil", collection: "Bridal",   color: "Champagne Gold",    price: 589, image: "images/product-20.svg", description: "Champagne-gold thread coiled tightly and finished with a row of tiny faux-diamond studs." },
+  { id: 21, name: "Fuchsia Fiesta",      collection: "Festive",  color: "Fuchsia Pink",      price: 419, image: "images/product-21.svg", description: "A vibrant fuchsia weave with a playful festive pattern, made for celebrations that call for colour." },
+  { id: 22, name: "Olive Thread Knot",   collection: "Casual",   color: "Olive Green",       price: 309, image: "images/product-22.svg", description: "Olive-green thread finished in a simple knot pattern — understated, versatile, easy to layer." },
+  { id: 23, name: "Wine Velvet Weave",   collection: "Bridal",   color: "Wine Red",          price: 609, image: "images/product-23.svg", description: "A wine-red thread bangle with a velvet-smooth finish and delicate pearl edging for bridal sets." },
+  { id: 24, name: "Amber Glow Twist",    collection: "Festive",  color: "Amber Yellow",      price: 389, image: "images/product-24.svg", description: "Amber-yellow thread twisted with fine gold piping, made to shine under festive lighting." },
+  { id: 25, name: "Onyx Thread Classic", collection: "Casual",   color: "Onyx Black",        price: 359, image: "images/product-25.svg", description: "A classic black thread bangle with a subtle sheen — the one piece that goes with absolutely everything." },
+];
+
+</script>
+<script>
+/*
+  SITE CONFIG — edit these values, nothing else needs to change.
+*/
+
+// Paste your Google Form's shareable link here (Forms → Send → link icon).
+// Used by the "Custom Enquiry" button on the homepage.
+const GOOGLE_FORM_URL = "https://forms.gle/REPLACE_WITH_YOUR_FORM_LINK";
+
+// WhatsApp number with country code, digits only (no +, no spaces).
+const WHATSAPP_NUMBER = "910000000000";
+
+// Your business email.
+const CONTACT_EMAIL = "hello@silkelegance.example";
+
+// A simple lock screen on admin.html so random visitors can't casually open it.
+// NOTE: this is NOT real security — anyone who views the page source can read
+// this value. It only stops casual browsing. Don't use it to protect anything
+// truly sensitive. For real protection, put admin.html behind a password on
+// your hosting provider, or don't link to it from anywhere public.
+const ADMIN_PASSCODE = "silk2026";
+
+</script>
+<script>
+// ---------------------------------------------------------------
+// Renders the 25 product cards on the homepage from js/products.js
+// Clicking anywhere on a card opens product.html?id=<id>
+// ---------------------------------------------------------------
+
+function cardTemplate(product) {
+  return `
+    <a class="card" href="product.html?id=${product.id}" data-collection="${product.collection}">
+      <div class="card-inner">
+        <div class="card-media">
+          <img src="${product.image}" alt="${product.name} — ${product.color} silk thread bangle" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="card-collection">${product.collection}</span>
+          <h3 class="card-name">${product.name}</h3>
+          <p class="card-color">${product.color}</p>
+          <div class="card-footer">
+            <span class="card-price">${product.price}</span>
+            <span class="card-view">View
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+  `;
+}
+
+function renderGrid(filter) {
+  const grid = document.getElementById('product-grid');
+  if (!grid) return;
+  const list = filter && filter !== 'All'
+    ? PRODUCTS.filter(p => p.collection === filter)
+    : PRODUCTS;
+  grid.innerHTML = list.map(cardTemplate).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderGrid('All');
+
+  const filterRow = document.getElementById('filter-row');
+  if (filterRow) {
+    filterRow.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-pill');
+      if (!btn) return;
+      filterRow.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid(btn.dataset.filter);
+    });
+  }
+
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Contact section links, built from js/config.js so there's one place to edit them.
+  const formLink = document.getElementById('custom-form-link');
+  if (formLink) formLink.href = GOOGLE_FORM_URL;
+
+  const waLink = document.getElementById('whatsapp-link');
+  if (waLink) {
+    const msg = encodeURIComponent("Hi Silk Élegance, I'd like to ask about a custom bangle.");
+    waLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+  }
+
+  const emailLink = document.getElementById('email-link');
+  if (emailLink) emailLink.href = `mailto:${CONTACT_EMAIL}`;
+});
+
+</script>
+</body>
+</html>

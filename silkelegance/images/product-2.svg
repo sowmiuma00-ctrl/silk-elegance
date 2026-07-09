@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="hsl(274,55%,18%)"/>
+      <stop offset="100%" stop-color="hsl(314,60%,10%)"/>
+    </linearGradient>
+    <linearGradient id="ring2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="hsl(274,70%,60%)"/>
+      <stop offset="50%" stop-color="hsl(314,75%,68%)"/>
+      <stop offset="100%" stop-color="hsl(274,70%,60%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#g2)"/>
+  <circle cx="200" cy="200" r="120" fill="none" stroke="url(#ring2)" stroke-width="26"/>
+  <circle cx="200" cy="200" r="120" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+  <text x="200" y="370" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="rgba(245,240,232,0.55)">Add your photo &#8594; product-2.jpg</text>
+</svg>

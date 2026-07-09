@@ -1,0 +1,599 @@
+/* ==========================================================================
+   SILK ÉLEGANCE — design tokens
+   Palette:
+     --void      #0b0a10   near-black base, faint plum undertone
+     --deep      #17131f   glass panel base
+     --ivory     #f3ecdf   primary text (warm, not stark white)
+     --muted     #b7aec2   secondary text
+     --gold      #d9a94e   thread colour 1
+     --magenta   #c9377d   thread colour 2
+     --violet    #8a5cf6   thread colour 3
+     --teal      #2fb3a3   thread colour 4
+   Type:
+     Display — 'Cormorant Garamond' (elegant, jewelry-catalogue serif)
+     Body    — 'Jost'      (clean geometric sans, boutique feel)
+   Signature element: the "thread weave" — a rotating conic-gradient border
+   and a woven SVG divider, referencing how the bangles are actually made:
+   silk thread wound and interlaced in shifting colour.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+  --void: #0b0a10;
+  --deep: #17131f;
+  --ivory: #f3ecdf;
+  --muted: #b7aec2;
+  --gold: #d9a94e;
+  --magenta: #c9377d;
+  --violet: #8a5cf6;
+  --teal: #2fb3a3;
+
+  --glass-bg: rgba(255, 255, 255, 0.045);
+  --glass-bg-strong: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+
+  --thread-gradient: linear-gradient(90deg, var(--gold), var(--magenta), var(--violet), var(--teal), var(--gold));
+
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --container: 1180px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--ivory);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .brand-wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- ambient aurora background ---------- */
+.bg-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: var(--void);
+  overflow: hidden;
+}
+.bg-aurora::before,
+.bg-aurora::after {
+  content: "";
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.32;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+.bg-aurora::before {
+  top: -15%;
+  left: -10%;
+  background: radial-gradient(circle, var(--magenta), transparent 65%);
+}
+.bg-aurora::after {
+  bottom: -20%;
+  right: -10%;
+  background: radial-gradient(circle, var(--teal), transparent 65%);
+  animation-duration: 32s;
+  animation-delay: -6s;
+}
+.bg-aurora .blob-3 {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  width: 45vw;
+  height: 45vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold), transparent 65%);
+  filter: blur(120px);
+  opacity: 0.22;
+  animation: drift 22s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(6vw, 8vh) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora::before, .bg-aurora::after, .bg-aurora .blob-3 { animation: none; }
+}
+
+/* ---------- glass nav ---------- */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  background: rgba(11, 10, 16, 0.55);
+  border-bottom: 1px solid var(--glass-border);
+}
+.site-nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.brand-wordmark {
+  font-size: 1.6rem;
+  font-style: italic;
+  background: var(--thread-gradient);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: threadshift 8s linear infinite;
+  letter-spacing: 0.03em;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.nav-links a {
+  color: var(--muted);
+  transition: color 0.25s ease;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: var(--ivory);
+  border-bottom-color: var(--gold);
+}
+
+@keyframes threadshift {
+  to { background-position: 300% 0; }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  padding: 110px 0 70px;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--glass-border);
+  padding: 6px 18px;
+  border-radius: 40px;
+  background: var(--glass-bg);
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.08;
+  max-width: 15ch;
+  margin: 0 auto 22px;
+  background: var(--thread-gradient);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: threadshift 10s linear infinite;
+}
+.hero p {
+  max-width: 46ch;
+  margin: 0 auto 36px;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: 40px;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.btn-primary {
+  background: linear-gradient(120deg, var(--magenta), var(--violet));
+  color: #fff;
+  border: none;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -8px var(--magenta); }
+.btn-ghost {
+  background: var(--glass-bg);
+  color: var(--ivory);
+}
+.btn-ghost:hover { background: var(--glass-bg-strong); transform: translateY(-2px); }
+
+/* ---------- thread divider (signature element) ---------- */
+.thread-divider {
+  display: block;
+  width: 100%;
+  height: 46px;
+  margin: 10px 0 30px;
+}
+.thread-divider path {
+  fill: none;
+  stroke: url(#threadGradientLine);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+/* ---------- section shell ---------- */
+section { padding: 70px 0; }
+.section-head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-head .eyebrow {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.section-head h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+.section-head p {
+  color: var(--muted);
+  max-width: 50ch;
+  margin: 14px auto 0;
+}
+
+/* ---------- filter pills ---------- */
+.filter-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.filter-pill {
+  padding: 9px 22px;
+  border-radius: 40px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.filter-pill:hover { color: var(--ivory); }
+.filter-pill.active {
+  color: var(--void);
+  background: var(--thread-gradient);
+  background-size: 300% 100%;
+  animation: threadshift 8s linear infinite;
+  border-color: transparent;
+  font-weight: 500;
+}
+
+/* ---------- product grid & glass cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 26px;
+}
+
+.card {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: var(--glass-border);
+  isolation: isolate;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from 0deg, var(--gold), var(--magenta), var(--violet), var(--teal), var(--gold));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: spin 6s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+.card:hover::before,
+.card:focus-visible::before { opacity: 1; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.card-inner {
+  background: var(--deep);
+  border-radius: inherit;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.35s ease;
+}
+.card:hover .card-inner,
+.card:focus-visible .card-inner { transform: translateY(-6px); }
+
+.card-media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #000;
+}
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.card:hover .card-media img { transform: scale(1.08); }
+
+.card-body { padding: 18px 20px 22px; }
+.card-collection {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  display: block;
+}
+.card-name {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+.card-color {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  color: var(--ivory);
+}
+.card-price::before { content: "₹"; opacity: 0.7; margin-right: 1px; }
+.card-view {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.card:hover .card-view { color: var(--ivory); }
+.card-view svg { width: 12px; height: 12px; transition: transform 0.3s ease; }
+.card:hover .card-view svg { transform: translateX(3px); }
+
+/* ---------- about split ---------- */
+.about-split {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.about-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: var(--deep);
+  border: 1px solid var(--glass-border);
+}
+.about-media img { width: 100%; height: 100%; object-fit: cover; }
+.about-text h2 { margin-bottom: 18px; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+.about-text p { color: var(--muted); margin-bottom: 16px; }
+.about-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 28px;
+}
+.about-stats div strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: var(--gold);
+}
+.about-stats div span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 860px) {
+  .about-split { grid-template-columns: 1fr; }
+  .about-media { aspect-ratio: 16/10; }
+}
+
+/* ---------- contact / footer ---------- */
+.contact-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 50px;
+  text-align: center;
+}
+.contact-panel h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 14px; }
+.contact-panel p { color: var(--muted); max-width: 44ch; margin: 0 auto 28px; }
+
+footer {
+  border-top: 1px solid var(--glass-border);
+  padding: 34px 0;
+  margin-top: 40px;
+}
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.footer-row small { color: var(--muted); font-size: 0.82rem; }
+.footer-social {
+  display: flex;
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-social a { color: var(--muted); font-size: 0.85rem; }
+.footer-social a:hover { color: var(--gold); }
+
+/* ==========================================================================
+   PRODUCT DETAIL PAGE
+   ========================================================================== */
+.breadcrumb {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--gold); }
+
+.product-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+  padding-bottom: 40px;
+}
+.pd-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: var(--deep);
+  aspect-ratio: 1/1;
+  position: relative;
+}
+.pd-media img { width: 100%; height: 100%; object-fit: cover; }
+
+.pd-collection {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: block;
+}
+.pd-name {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 12px;
+}
+.pd-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  margin-bottom: 22px;
+  color: var(--ivory);
+}
+.pd-price::before { content: "₹"; opacity: 0.7; }
+
+.pd-swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 26px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+.pd-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+  flex-shrink: 0;
+}
+.pd-swatch-label { font-size: 0.85rem; color: var(--muted); }
+.pd-swatch-label strong { color: var(--ivory); font-weight: 500; }
+
+.pd-description {
+  color: var(--muted);
+  margin-bottom: 30px;
+  line-height: 1.75;
+}
+
+.pd-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+}
+
+.pd-meta-list {
+  list-style: none;
+  padding: 20px 0 0;
+  margin: 0;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.pd-meta-list li { display: flex; justify-content: space-between; padding: 8px 0; }
+.pd-meta-list li span:last-child { color: var(--ivory); }
+
+@media (max-width: 860px) {
+  .product-detail { grid-template-columns: 1fr; }
+}
+
+.pd-not-found {
+  text-align: center;
+  padding: 100px 0;
+}
+.pd-not-found h2 { margin-bottom: 14px; }
+.pd-not-found p { color: var(--muted); margin-bottom: 26px; }

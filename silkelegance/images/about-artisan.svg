@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+  <defs>
+    <linearGradient id="ga" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#241a2e"/>
+      <stop offset="100%" stop-color="#12101a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#ga)"/>
+  <circle cx="140" cy="180" r="70" fill="none" stroke="#d9a94e" stroke-width="10"/>
+  <circle cx="230" cy="230" r="70" fill="none" stroke="#c9377d" stroke-width="10"/>
+  <circle cx="180" cy="310" r="70" fill="none" stroke="#2fb3a3" stroke-width="10"/>
+  <text x="200" y="460" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="rgba(245,240,232,0.55)">Replace with images/about-artisan.jpg</text>
+</svg>

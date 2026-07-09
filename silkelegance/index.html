@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silk Élegance — Handcrafted Silk Thread Bangles</title>
+<meta name="description" content="Handcrafted silk thread bangles, wound and woven by hand in small batches. Bridal, festive and everyday collections.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="bg-aurora"><div class="blob-3"></div></div>
+
+<!-- hidden SVG gradient definition, reused by the thread-divider signature element -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="threadGradientLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d9a94e"><animate attributeName="stop-color" values="#d9a94e;#c9377d;#8a5cf6;#2fb3a3;#d9a94e" dur="8s" repeatCount="indefinite"/></stop>
+      <stop offset="50%" stop-color="#c9377d"><animate attributeName="stop-color" values="#c9377d;#8a5cf6;#2fb3a3;#d9a94e;#c9377d" dur="8s" repeatCount="indefinite"/></stop>
+      <stop offset="100%" stop-color="#2fb3a3"><animate attributeName="stop-color" values="#2fb3a3;#d9a94e;#c9377d;#8a5cf6;#2fb3a3" dur="8s" repeatCount="indefinite"/></stop>
+    </linearGradient>
+  </defs>
+</svg>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand-wordmark">Silk Élegance</a>
+    <ul class="nav-links">
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Wound &amp; woven by hand</span>
+    <h1>Where thread becomes art, one wrist at a time.</h1>
+    <p>Every Silk Élegance bangle is hand-wound from pure silk thread in small batches — no two skeins catch the light quite the same way.</p>
+    <div class="hero-ctas">
+      <a href="#collection" class="btn btn-primary">Explore the collection</a>
+      <a href="#about" class="btn btn-ghost">Our story</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <svg class="thread-divider" viewBox="0 0 1180 46" preserveAspectRatio="none">
+    <path d="M0,23 C 120,5 200,41 320,23 C 440,5 520,41 640,23 C 760,5 840,41 960,23 C 1040,10 1120,30 1180,23" />
+  </svg>
+</div>
+
+<section id="collection">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The Collection</span>
+      <h2>25 hand-wound designs</h2>
+      <p>Filter by occasion, or scroll the full set. Tap any bangle for thread colour, sizing and ordering details.</p>
+    </div>
+
+    <div class="filter-row" id="filter-row">
+      <button class="filter-pill active" data-filter="All">All</button>
+      <button class="filter-pill" data-filter="Bridal">Bridal</button>
+      <button class="filter-pill" data-filter="Festive">Festive</button>
+      <button class="filter-pill" data-filter="Casual">Casual</button>
+    </div>
+
+    <div class="grid" id="product-grid">
+      <!-- Product cards are generated from js/products.js — see that file to add your own photos. -->
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-split">
+    <div class="about-media">
+      <img src="images/about-artisan.svg" alt="Artisan winding silk thread by hand" onerror="this.src='images/product-1.svg'">
+    </div>
+    <div class="about-text">
+      <span class="eyebrow" style="color:var(--gold); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; display:block; margin-bottom:10px;">Our Story</span>
+      <h2>A small workshop, a lot of thread.</h2>
+      <p>Silk Élegance started on a kitchen table with a few spools of silk thread and a stack of plain bangles nobody wanted. Today every piece is still wound by hand, one colour at a time, in batches small enough that we notice when a shade runs out.</p>
+      <p>We work directly with thread artisans, keep our palettes seasonal, and make sure every bangle that leaves our workshop could survive a wedding, a wardrobe change, and a few years of daily wear.</p>
+      <div class="about-stats">
+        <div><strong>25+</strong><span>Active designs</span></div>
+        <div><strong>100%</strong><span>Hand-wound</span></div>
+        <div><strong>Made</strong><span>To order</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <h2>Custom colours, custom sizes.</h2>
+      <p>Have a saree or lehenga you're matching against? Fill the custom enquiry form with a photo of the shade, and we'll wind a bangle to match.</p>
+      <div class="hero-ctas">
+        <a id="custom-form-link" href="#" class="btn btn-primary" target="_blank" rel="noopener">Custom enquiry form</a>
+        <a id="whatsapp-link" href="#" class="btn btn-ghost" target="_blank" rel="noopener">WhatsApp us</a>
+        <a id="email-link" href="#" class="btn btn-ghost">Email us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <small>© <span id="year"></span> Silk Élegance. Handcrafted in small batches.</small>
+    <ul class="footer-social">
+      <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="#" target="_blank" rel="noopener">Pinterest</a></li>
+      <li><a href="mailto:hello@silkelegance.example">Email</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

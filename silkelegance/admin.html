@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Silk Élegance</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="bg-aurora"><div class="blob-3"></div></div>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand-wordmark">Silk Élegance</a>
+    <ul class="nav-links">
+      <li><a href="index.html">View site</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Passcode gate: not real security, just keeps casual visitors out. See js/config.js -->
+<div class="wrap" id="lock-screen" style="padding-top:80px; text-align:center;">
+  <div class="contact-panel" style="max-width:420px; margin:0 auto;">
+    <h2 style="font-size:1.8rem;">Admin access</h2>
+    <p>Enter the admin passcode to manage products.</p>
+    <input type="password" id="passcode-input" class="admin-input" placeholder="Passcode" style="max-width:260px; margin:0 auto 18px;">
+    <div><button class="btn btn-primary" id="unlock-btn">Unlock</button></div>
+    <p id="passcode-error" style="color:#e26565; font-size:0.85rem; display:none; margin-top:14px;">Incorrect passcode.</p>
+  </div>
+</div>
+
+<div class="wrap admin-wrap" id="admin-panel" style="display:none;">
+
+  <div class="section-head" style="margin-bottom:30px;">
+    <span class="eyebrow">Admin</span>
+    <h2>Manage products</h2>
+    <p>Add, edit or remove bangles below, then download the updated <code>products.js</code> and replace the one in your project's <code>js</code> folder.</p>
+  </div>
+
+  <div class="admin-grid">
+    <!-- ---------- Form ---------- -->
+    <form id="product-form" class="admin-panel-box">
+      <h3 id="form-title" style="margin-bottom:18px;">Add a product</h3>
+
+      <label class="admin-label">Name
+        <input type="text" id="f-name" class="admin-input" required placeholder="e.g. Sapphire Thread Coil">
+      </label>
+
+      <label class="admin-label">Collection
+        <select id="f-collection" class="admin-input" required>
+          <option value="Bridal">Bridal</option>
+          <option value="Festive">Festive</option>
+          <option value="Casual">Casual</option>
+        </select>
+      </label>
+
+      <label class="admin-label">Thread colour (for display text)
+        <input type="text" id="f-color" class="admin-input" required placeholder="e.g. Sapphire Blue">
+      </label>
+
+      <label class="admin-label">Price (₹)
+        <input type="number" id="f-price" class="admin-input" required min="0" placeholder="e.g. 499">
+      </label>
+
+      <label class="admin-label">Product photo
+        <input type="file" id="f-image-file" class="admin-input" accept="image/*">
+      </label>
+      <div id="image-preview-wrap" style="display:none; margin:-8px 0 14px;">
+        <img id="image-preview" style="width:90px; height:90px; object-fit:cover; border-radius:12px; border:1px solid var(--glass-border);">
+        <p class="admin-hint">Suggested filename: <code id="suggested-filename">—</code></p>
+      </div>
+      <p class="admin-hint" style="margin-top:-10px;">This only previews the photo — it does not upload it anywhere. Save the file into your <code>images</code> folder using the suggested filename above.</p>
+
+      <label class="admin-label">Description
+        <textarea id="f-description" class="admin-input" rows="4" required placeholder="A short, sensory description of the piece."></textarea>
+      </label>
+
+      <div class="admin-actions">
+        <button type="submit" class="btn btn-primary" id="save-btn">Add product</button>
+        <button type="button" class="btn btn-ghost" id="cancel-edit-btn" style="display:none;">Cancel edit</button>
+      </div>
+    </form>
+
+    <!-- ---------- Live list ---------- -->
+    <div class="admin-panel-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+        <h3>Current catalogue (<span id="product-count">0</span>)</h3>
+        <button class="btn btn-primary" id="download-btn">Download products.js</button>
+      </div>
+      <p class="admin-hint" style="margin-top:-6px;">Changes here are saved to this browser only until you download and replace <code>products.js</code>. Visitors to your live site won't see them until you do.</p>
+      <div id="admin-table"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-row">
+    <small>© <span id="year"></span> Silk Élegance — admin tool.</small>
+  </div>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
