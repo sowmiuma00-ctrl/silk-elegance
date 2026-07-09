@@ -43,4 +43,5 @@ const PRODUCTS = [
   { id: 23, name: "Wine Velvet Weave",   collection: "Bridal",   color: "Wine Red",          price: 609, image: "images/product-23.svg", description: "A wine-red thread bangle with a velvet-smooth finish and delicate pearl edging for bridal sets." },
   { id: 24, name: "Amber Glow Twist",    collection: "Festive",  color: "Amber Yellow",      price: 389, image: "images/product-24.svg", description: "Amber-yellow thread twisted with fine gold piping, made to shine under festive lighting." },
   { id: 25, name: "Onyx Thread Classic", collection: "Casual",   color: "Onyx Black",        price: 359, image: "images/product-25.svg", description: "A classic black thread bangle with a subtle sheen — the one piece that goes with absolutely everything." },
+  { id: 26, name: "Crystal Drop Earrings", collection: "Fancy Items", color: "Silver", price: 249, image: "images/earring-1.jpg", description: "A pair of lightweight crystal drop earrings, perfect to pair with any bangle set." },
 ];
