@@ -18,7 +18,7 @@
 */
 
 const PRODUCTS = [
-  { id: 1,  name: "Marigold Bloom",      collection: "Festive",  color: "Marigold Gold",     price: 449, image: "C:\Users\Admin\Downloads\imagesmarigold-real.jpg,.jpeg",  description: "Hand-wound marigold-gold silk thread over a lightweight brass base, finished with a cluster of mirror-work beads. A festive staple that layers beautifully with gold jewellery." },
+  { id: 1,  name: "Marigold Bloom",      collection: "Festive",  color: "Marigold Gold",     price: 449, image: "images/images.jpeg",  description: "Hand-wound marigold-gold silk thread over a lightweight brass base, finished with a cluster of mirror-work beads. A festive staple that layers beautifully with gold jewellery." },
   { id: 2,  name: "Rani Pink Raga",      collection: "Bridal",   color: "Rani Pink",         price: 599, image: "images/product-2.svg",  description: "Deep rani pink thread wrapped in a traditional raga pattern, studded with kundan stones. Designed for the bride who wants colour without losing elegance." },
   { id: 3,  name: "Peacock Teal Weave",  collection: "Casual",   color: "Peacock Teal",      price: 379, image: "images/product-3.svg",  description: "A cool peacock-teal weave with a matte thread finish, perfect for everyday wear over kurtas and cottons." },
   { id: 4,  name: "Emerald Zari Coil",   collection: "Festive",  color: "Emerald Green",     price: 529, image: "images/product-4.svg",  description: "Emerald silk thread coiled with fine zari edging, giving each bangle a subtle metallic glint under light." },
